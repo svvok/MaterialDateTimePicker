@@ -26,11 +26,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
-import androidx.customview.widget.ExploreByTouchHelper;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -46,6 +41,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat;
+import androidx.customview.widget.ExploreByTouchHelper;
 
 /**
  * A calendar-like view displaying a specified month and the appropriate selectable day numbers
@@ -404,6 +405,8 @@ public abstract class MonthView extends View {
     @NonNull
     private String getMonthAndYearString() {
         Locale locale = mController.getLocale();
+
+        // TODO
         String pattern = "MMMM yyyy";
 
         if (Build.VERSION.SDK_INT < 18) pattern = getContext().getResources().getString(R.string.mdtp_date_v1_monthyear);
@@ -431,7 +434,10 @@ public abstract class MonthView extends View {
         for (int i = 0; i < mNumDays; i++) {
             int x = (2 * i + 1) * dayWidthHalf + mEdgePadding;
 
-            int calendarDay = (i + mWeekStart) % mNumDays;
+            // TODO
+//            int calendarDay = (i + mWeekStart) % mNumDays;
+            int calendarDay = (mNumDays - 1 - i  + mWeekStart) % mNumDays;
+
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
             String weekString = getWeekDayLabel(mDayLabelCalendar);
             canvas.drawText(weekString, x, y, mMonthDayLabelPaint);
@@ -451,7 +457,10 @@ public abstract class MonthView extends View {
         final int dayWidthHalf = (mWidth - mEdgePadding * 2) / (mNumDays * 2);
         int j = findDayOffset();
         for (int dayNumber = 1; dayNumber <= mNumCells; dayNumber++) {
-            final int x = (2 * j + 1) * dayWidthHalf + mEdgePadding;
+
+            //TODO
+//            final int x = (2 * j + 1) * dayWidthHalf + mEdgePadding;
+            final int x = mWidth - ((2 * j + 1) * dayWidthHalf + mEdgePadding);
 
             int yRelativeToDay = (mRowHeight + MINI_DAY_NUMBER_TEXT_SIZE) / 2 - DAY_SEPARATOR_WIDTH;
 
@@ -522,7 +531,10 @@ public abstract class MonthView extends View {
         }
         // Selection is (x - start) / (pixels/day) == (x -s) * day / pixels
         int row = (int) (y - getMonthHeaderSize()) / mRowHeight;
-        int column = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
+
+        //TODO
+//        int column = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
+        int column = (mNumDays - 1) - (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
 
         int day = column - findDayOffset() + 1;
         day += row * mNumDays;
@@ -542,7 +554,6 @@ public abstract class MonthView extends View {
         if (mController.isOutOfRange(mYear, mMonth, day)) {
             return;
         }
-
 
         if (mOnDayClickListener != null) {
             mOnDayClickListener.onDayClick(this, new CalendarDay(mYear, mMonth, day, mController.getTimeZone()));
