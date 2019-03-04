@@ -39,7 +39,8 @@
             android:layout_centerVertical="true"
             android:visibility="invisible"
             style="@style/mdtp_time_label"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:layout_toStartOf="@+id/mdtp_separator" />
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -49,7 +50,11 @@
             android:layout_marginRight="@dimen/mdtp_extra_time_label_margin"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:clipChildren="false" >
+            android:clipChildren="false"
+            android:layout_marginStart="@dimen/mdtp_extra_time_label_margin"
+            android:layout_marginEnd="@dimen/mdtp_extra_time_label_margin"
+            android:layout_alignStart="@+id/mdtp_hour_space"
+            android:layout_alignEnd="@+id/mdtp_hour_space">
             <com.wdullaer.materialdatetimepicker.AccessibleTextView
                 android:id="@+id/mdtp_hours"
                 android:layout_width="wrap_content"
@@ -74,7 +79,10 @@
             android:background="@android:color/transparent"
             android:textColor="@color/mdtp_accent_color_focused"
             style="@style/mdtp_time_label"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:paddingEnd="@dimen/mdtp_separator_padding"
+            android:layout_alignEnd="@+id/mdtp_center_view"
+            android:paddingStart="@dimen/mdtp_separator_padding" />
 
         <TextView
             android:id="@+id/mdtp_minutes_space"
@@ -86,7 +94,8 @@
             android:visibility="invisible"
             android:textColor="@color/mdtp_accent_color_focused"
             style="@style/mdtp_time_label"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:layout_toEndOf="@+id/mdtp_separator" />
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -95,7 +104,11 @@
             android:layout_marginLeft="@dimen/mdtp_extra_time_label_margin"
             android:layout_marginRight="@dimen/mdtp_extra_time_label_margin"
             android:background="@android:color/transparent"
-            android:layout_centerVertical="true" >
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/mdtp_minutes_space"
+            android:layout_alignStart="@+id/mdtp_minutes_space"
+            android:layout_marginEnd="@dimen/mdtp_extra_time_label_margin"
+            android:layout_marginStart="@dimen/mdtp_extra_time_label_margin">
             <com.wdullaer.materialdatetimepicker.AccessibleTextView
                 android:id="@+id/mdtp_minutes"
                 style="@style/mdtp_time_label"
@@ -120,7 +133,10 @@
             android:background="@android:color/transparent"
             android:textColor="@color/mdtp_accent_color_focused"
             style="@style/mdtp_time_label"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:paddingEnd="@dimen/mdtp_separator_padding"
+            android:paddingStart="@dimen/mdtp_separator_padding"
+            android:layout_toEndOf="@+id/mdtp_minutes_space" />
 
         <TextView
             android:id="@+id/mdtp_seconds_space"
@@ -133,7 +149,8 @@
             android:background="@android:color/transparent"
             android:textColor="@color/mdtp_accent_color_focused"
             style="@style/mdtp_time_label_small"
-            android:importantForAccessibility="no" />
+            android:importantForAccessibility="no"
+            android:layout_toEndOf="@+id/mdtp_separator_seconds" />
 
         <com.wdullaer.materialdatetimepicker.AccessibleTextView
             android:id="@+id/mdtp_seconds"
@@ -146,7 +163,8 @@
             android:background="@android:color/transparent"
             android:layout_toRightOf="@+id/mdtp_separator_seconds"
             android:layout_alignBaseline="@id/mdtp_separator"
-            android:textColor="@color/mdtp_accent_color_focused" />
+            android:textColor="@color/mdtp_accent_color_focused"
+            android:layout_toEndOf="@+id/mdtp_separator_seconds" />
 
         <LinearLayout
             android:id="@+id/mdtp_ampm_layout"
@@ -156,7 +174,8 @@
             android:layout_alignBaseline="@+id/mdtp_seconds"
             android:baselineAlignedChildIndex="1"
             android:background="@android:color/transparent"
-            android:layout_toRightOf="@id/mdtp_seconds">
+            android:layout_toRightOf="@id/mdtp_seconds"
+            android:layout_toEndOf="@id/mdtp_seconds">
             <TextView
                 android:id="@+id/mdtp_am_label"
                 android:layout_width="wrap_content"
@@ -167,7 +186,9 @@
                 android:background="@android:color/transparent"
                 android:textColor="@color/mdtp_accent_color_focused"
                 style="@style/mdtp_ampm_label"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                android:paddingEnd="@dimen/mdtp_ampm_left_padding"
+                android:paddingStart="@dimen/mdtp_ampm_left_padding" />
             <TextView
                 android:id="@+id/mdtp_pm_label"
                 android:layout_width="wrap_content"
@@ -179,6 +200,8 @@
                 android:background="@android:color/transparent"
                 android:textColor="@color/mdtp_accent_color_focused"
                 style="@style/mdtp_ampm_label"
-                android:importantForAccessibility="no" />
+                android:importantForAccessibility="no"
+                android:paddingEnd="@dimen/mdtp_ampm_left_padding"
+                android:paddingStart="@dimen/mdtp_ampm_left_padding" />
         </LinearLayout>
   </RelativeLayout>

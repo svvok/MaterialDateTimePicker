@@ -262,26 +262,22 @@ public abstract class DayPickerView extends RecyclerView implements OnDateChange
     public @Nullable MonthView getMostVisibleMonth() {
         boolean verticalScroll = mController.getScrollOrientation() == DatePickerDialog.ScrollOrientation.VERTICAL;
         final int maxSize = verticalScroll ? getHeight() : getWidth();
-        int maxDisplayedSize = 0;
         int i = 0;
-        int size = 0;
-        MonthView mostVisibleMonth = null;
 
-        while (size < maxSize) {
+        while (i < getChildCount()) {
             View child = getChildAt(i);
             if (child == null) {
                 break;
             }
-            size = verticalScroll ? child.getBottom() : child.getRight();
-            int endPosition = verticalScroll ? child.getTop() : child.getLeft();
-            int displayedSize = Math.min(size, maxSize) - Math.max(0, endPosition);
-            if (displayedSize > maxDisplayedSize) {
-                mostVisibleMonth = (MonthView) child;
-                maxDisplayedSize = displayedSize;
-            }
+
+            int start = verticalScroll ? child.getTop() : child.getLeft();
+            int end = verticalScroll ? child.getBottom() : child.getRight();
+
+            if (start <= maxSize/2 && end >= maxSize/2) return (MonthView) child;
             i++;
         }
-        return mostVisibleMonth;
+
+        return null;
     }
 
     public int getCount() {

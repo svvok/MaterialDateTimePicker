@@ -36,5 +36,4 @@ public class SimpleDayPickerView extends DayPickerView {
     public MonthAdapter createMonthAdapter(DatePickerController controller) {
         return new SimpleMonthAdapter(controller);
     }
-
 }

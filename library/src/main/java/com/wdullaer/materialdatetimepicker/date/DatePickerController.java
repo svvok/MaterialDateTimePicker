@@ -60,6 +60,8 @@ public interface DatePickerController {
 
     Locale getLocale();
 
+    boolean isLTR();
+
     DatePickerDialog.Version getVersion();
 
     DatePickerDialog.ScrollOrientation getScrollOrientation();

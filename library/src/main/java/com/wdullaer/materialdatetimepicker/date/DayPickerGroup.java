@@ -1,11 +1,8 @@
 package com.wdullaer.materialdatetimepicker.date;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +10,11 @@ import android.widget.ImageButton;
 
 import com.wdullaer.materialdatetimepicker.R;
 import com.wdullaer.materialdatetimepicker.Utils;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 
 public class DayPickerGroup extends ViewGroup
         implements View.OnClickListener, DayPickerView.OnPageListener {
@@ -163,6 +165,8 @@ public class DayPickerGroup extends ViewGroup
     public void onPageChanged(int position) {
         updateButtonVisibility(position);
         dayPickerView.accessibilityAnnouncePageChanged();
+
+        Log.i("DayPickerGroup", "!!!!! onPageChanged " + position);
     }
 
     @Override

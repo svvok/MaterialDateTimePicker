@@ -406,7 +406,6 @@ public abstract class MonthView extends View {
     private String getMonthAndYearString() {
         Locale locale = mController.getLocale();
 
-        // TODO
         String pattern = "MMMM yyyy";
 
         if (Build.VERSION.SDK_INT < 18) pattern = getContext().getResources().getString(R.string.mdtp_date_v1_monthyear);
@@ -434,9 +433,12 @@ public abstract class MonthView extends View {
         for (int i = 0; i < mNumDays; i++) {
             int x = (2 * i + 1) * dayWidthHalf + mEdgePadding;
 
-            // TODO
-//            int calendarDay = (i + mWeekStart) % mNumDays;
-            int calendarDay = (mNumDays - 1 - i  + mWeekStart) % mNumDays;
+            int calendarDay;
+            if (mController.isLTR()) {
+                calendarDay = (i + mWeekStart) % mNumDays;
+            } else {
+                calendarDay = (mNumDays - 1 - i  + mWeekStart) % mNumDays;
+            }
 
             mDayLabelCalendar.set(Calendar.DAY_OF_WEEK, calendarDay);
             String weekString = getWeekDayLabel(mDayLabelCalendar);
@@ -458,9 +460,12 @@ public abstract class MonthView extends View {
         int j = findDayOffset();
         for (int dayNumber = 1; dayNumber <= mNumCells; dayNumber++) {
 
-            //TODO
-//            final int x = (2 * j + 1) * dayWidthHalf + mEdgePadding;
-            final int x = mWidth - ((2 * j + 1) * dayWidthHalf + mEdgePadding);
+            int x;
+            if (mController.isLTR()) {
+                x = (2 * j + 1) * dayWidthHalf + mEdgePadding;
+            } else {
+                x = mWidth - ((2 * j + 1) * dayWidthHalf + mEdgePadding);
+            }
 
             int yRelativeToDay = (mRowHeight + MINI_DAY_NUMBER_TEXT_SIZE) / 2 - DAY_SEPARATOR_WIDTH;
 
@@ -532,9 +537,12 @@ public abstract class MonthView extends View {
         // Selection is (x - start) / (pixels/day) == (x -s) * day / pixels
         int row = (int) (y - getMonthHeaderSize()) / mRowHeight;
 
-        //TODO
-//        int column = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
-        int column = (mNumDays - 1) - (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
+        int column;
+        if (mController.isLTR()) {
+            column = (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
+        } else {
+            column = (mNumDays - 1) - (int) ((x - dayStart) * mNumDays / (mWidth - dayStart - mEdgePadding));
+        }
 
         int day = column - findDayOffset() + 1;
         day += row * mNumDays;

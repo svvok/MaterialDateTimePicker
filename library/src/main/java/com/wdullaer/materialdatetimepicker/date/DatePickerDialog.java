@@ -25,12 +25,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.fragment.app.DialogFragment;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -55,6 +49,15 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.core.text.TextUtilsCompat;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.DialogFragment;
 
 /**
  * Dialog allowing users to select a date.
@@ -404,14 +407,19 @@ public class DatePickerDialog extends DialogFragment implements
         mAnimator.addView(mDayPickerView);
         mAnimator.addView(mYearPickerView);
         mAnimator.setDateMillis(mCalendar.getTimeInMillis());
-        // TODO: Replace with animation decided upon by the design team.
-        Animation animation = new AlphaAnimation(0.0f, 1.0f);
-        animation.setDuration(ANIMATION_DURATION);
-        mAnimator.setInAnimation(animation);
-        // TODO: Replace with animation decided upon by the design team.
-        Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
-        animation2.setDuration(ANIMATION_DURATION);
-        mAnimator.setOutAnimation(animation2);
+            // TODO: Replace with animation decided upon by the design team.
+            Animation animation = new AlphaAnimation(0.0f, 1.0f);
+            animation.setDuration(ANIMATION_DURATION);
+            // TODO: Replace with animation decided upon by the design team.
+            Animation animation2 = new AlphaAnimation(1.0f, 0.0f);
+            animation2.setDuration(ANIMATION_DURATION);
+        if (isLTR()) {
+            mAnimator.setInAnimation(animation);
+            mAnimator.setOutAnimation(animation2);
+        } else {
+            mAnimator.setInAnimation(animation2);
+            mAnimator.setOutAnimation(animation);
+        }
 
         Button okButton = view.findViewById(R.id.mdtp_ok);
         okButton.setOnClickListener(v -> {
@@ -1010,6 +1018,11 @@ public class DatePickerDialog extends DialogFragment implements
     @Override
     public Locale getLocale() {
         return mLocale;
+    }
+
+    @Override
+    public boolean isLTR() {
+        return TextUtilsCompat.getLayoutDirectionFromLocale(getLocale()) == ViewCompat.LAYOUT_DIRECTION_LTR;
     }
 
     @SuppressWarnings("unused")
